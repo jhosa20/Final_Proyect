@@ -1,0 +1,33 @@
+name: Deploy App via SCP (to root dir)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy project files to EC2 root dir
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.EC2_IP_PF }}
+          username: ${{ secrets.EC2_USR_PF }}
+          key: ${{ secrets.EC2_PEM_PF }}
+          port: 22
+          source: "."
+          target: "~/app"
+
+      - name: Deploy app using docker-compose
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_IP_PF }}
+          username: ${{ secrets.EC2_USR_PF }}
+          key: ${{ secrets.EC2_PEM_PF }}
+          port: 22
+          script: |
+            cd ~/app
+            docker-compose up -d app
