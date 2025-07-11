@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.EC2_PEM_PF }}
           port: 22
           source: "."
-          target: "~/app"
+          target: "~.app"
 
       - name: Deploy app using docker-compose
         uses: appleboy/ssh-action@v0.1.10
