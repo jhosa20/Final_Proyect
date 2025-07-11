@@ -18,6 +18,7 @@ jobs:
           host: ${{ secrets.EC2_IP_PF }}
           username: ${{ secrets.EC2_USR_PF }}
           key: ${{ secrets.EC2_PEM_PF }}
+          port: 22
           script: |
             cd ~/app
             docker-compose up -d prometheus 
