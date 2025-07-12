@@ -29,6 +29,5 @@ jobs:
           key: ${{ secrets.EC2_PEM_PF }}
           port: 22
           script: |
-            docker-compose pull
             cd ~/app
             docker-compose up -d
