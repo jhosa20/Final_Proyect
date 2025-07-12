@@ -30,9 +30,6 @@ jobs:
           port: 22
           script: |
             echo "${{ secrets.GH_EC2T_PF }}" | docker login ghcr.io -u ${{ secrets.GH_PF }} --password-stdin
-            docker pull ghcr.io/${{ secrets.GH_PF }}/fastapi-app:latest
-            docker stop fastapi-app || true
-            docker rm fastapi-app || true
-            docker run -d -p 8000:8000 --name fastapi-app ghcr.io/${{ secrets.GH_USERNAME }}/fastapi-app:latest
+            docker-compose pull
             cd ~/app
             docker-compose up -d
