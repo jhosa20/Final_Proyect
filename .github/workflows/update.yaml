@@ -23,3 +23,4 @@ jobs:
             cd ~/app
             docker-compose up -d prometheus 
             docker-compose up -d grafana
+            
