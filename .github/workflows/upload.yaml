@@ -29,7 +29,6 @@ jobs:
           key: ${{ secrets.EC2_PEM_PF }}
           port: 22
           script: |
-            echo "${{ secrets.GH_EC2T_PF }}" | docker login ghcr.io -u ${{ secrets.GH_PF }} --password-stdin
             docker-compose pull
             cd ~/app
             docker-compose up -d
