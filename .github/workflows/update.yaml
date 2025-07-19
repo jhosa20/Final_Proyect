@@ -1,0 +1,26 @@
+name: Deploy Monitoring Stack
+
+on:
+  push:
+    paths:
+      - prometheus/**
+      - docker-compose.yaml
+  workflow_dispatch:
+
+jobs:
+  deploy-monitoring:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy monitoring via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_IP_PF }}
+          username: ${{ secrets.EC2_USR_PF }}
+          key: ${{ secrets.EC2_PEM_PF }}
+          port: 22
+          script: |
+            cd ~/app
+            docker-compose up -d prometheus 
+            docker-compose up -d grafana
+            
