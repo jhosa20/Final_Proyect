@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - app/**
+      - Dockerfile
+      - requirements.txt
+      - run.py
+      - docker-compose.yaml
 
 jobs:
   build-and-push:
@@ -19,7 +23,7 @@ jobs:
         run: echo "${{ secrets.GH_EC2T_PF }}" | docker login ghcr.io -u ${{ secrets.GH_PF }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ secrets.GH_PF }}/fastapi-app:latest ./app
+        run: docker build -t ghcr.io/${{ secrets.GH_PF }}/fastapi-app:latest .
 
       - name: Push Docker image
         run: docker push ghcr.io/${{ secrets.GH_PF }}/fastapi-app:latest
